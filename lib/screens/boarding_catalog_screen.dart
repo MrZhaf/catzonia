@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../models/service_item.dart';
 import '../providers/booking_provider.dart';
-import '../screens/checkout_screen.dart';
+// import '../screens/checkout_screen.dart';
 import '../widgets/service_card.dart';
 
 class BoardingCatalogScreen extends StatefulWidget {
@@ -104,7 +104,8 @@ class _BoardingCatalogScreenState extends State<BoardingCatalogScreen> {
       children: [
         Row(
           children: [
-            Text('Start Date: ', style: TextStyle(fontSize: 16)),
+            Icon(Icons.calendar_month),
+            Text(' Start Date: ', style: TextStyle(fontSize: 16)),
             TextButton(
               onPressed: () => _pickdate(context),
               child: Text(
@@ -117,7 +118,8 @@ class _BoardingCatalogScreenState extends State<BoardingCatalogScreen> {
         ),
         Row(
           children: [
-            Text('End Date: ', style: TextStyle(fontSize: 16)),
+            Icon(Icons.calendar_month),
+            Text(' End Date: ', style: TextStyle(fontSize: 16)),
             TextButton(
               onPressed: () => _pickEndDate(context),
               child: Text(
@@ -142,22 +144,6 @@ class _BoardingCatalogScreenState extends State<BoardingCatalogScreen> {
                       },
                     ),
                   ),
-            ElevatedButton.icon(
-               style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFEBB515), // Yellow button color
-                  foregroundColor: Colors.black, 
-                  padding: EdgeInsets.symmetric(vertical: 14),
-                  textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => CheckoutScreen()),
-                );
-              },
-              icon: Icon(Icons.shopping_cart_checkout),
-              label: Text('Go to Checkout'),
-            ),
           ],
         ),
       ),

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../models/customer.dart';
 import '../providers/booking_provider.dart';
-import 'grooming_catalog_screen.dart';
+import 'tabbedscreen.dart'; // Adjust path if needed
 
 class CustomerFormScreen extends StatefulWidget {
   @override
@@ -17,43 +17,6 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
   final _catNameController = TextEditingController();
   final _breedController = TextEditingController();
 
-  void _saveCustomer() {
-    if (_formKey.currentState!.validate()) {
-      final customer = Customer(
-        ownerName: _ownerNameController.text,
-        phone: _phoneController.text,
-        catName: _catNameController.text,
-        breed: _breedController.text,
-      );
-
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text('Save?'),
-          content: Text('Are you sure you want to save this customer?'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context), // cancel
-              child: Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Provider.of<BookingProvider>(context, listen: false)
-                    .setCustomer(customer);
-                Navigator.pop(context); // close dialog
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => GroomingCatalogScreen()),
-                );
-              },
-              child: Text('Yes, Save'),
-            ),
-          ],
-        ),
-      );
-    }
-  }
-
   @override
   void dispose() {
     _ownerNameController.dispose();
@@ -66,25 +29,24 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    appBar: AppBar(
-  centerTitle: true,
-  title: Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Image.asset(
-        'assets/images/catzonia.png',
-        height: 64,
+      appBar: AppBar(
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              'assets/images/catzonia.png',
+              height: 64,
+            ),
+            const SizedBox(width: 10),
+            const Text(
+              'Customer Info',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
-      const SizedBox(width: 10),
-      const Text(
-        'Customer Info',
-        style: TextStyle(fontSize:16, fontWeight: FontWeight.bold),
-      ),
-    ],
-  ),
-),
-
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -119,12 +81,53 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
               SizedBox(height: 24),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFEBB515), // Yellow button color
-                  foregroundColor: Colors.black, 
+                  backgroundColor: Color(0xFFEBB515),
+                  foregroundColor: Colors.black,
                   padding: EdgeInsets.symmetric(vertical: 14),
-                  textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                onPressed: _saveCustomer,
+                  textStyle:
+                      TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    final customer = Customer(
+                      ownerName: _ownerNameController.text,
+                      phone: _phoneController.text,
+                      catName: _catNameController.text,
+                      breed: _breedController.text,
+                    );
+
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: Text('Save?'),
+                        content:
+                            Text('Are you sure you want to save this customer?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: Text('Cancel'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Provider.of<BookingProvider>(context,
+                                      listen: false)
+                                  .setCustomer(customer);
+                              Navigator.pop(context); // Close dialog
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      TabbedGroomingScreen(initialIndex: 1),
+                                ),
+                              );
+                            },
+                            child: Text('Yes, Save'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
                 child: Text('Save and Continue'),
               ),
             ],
