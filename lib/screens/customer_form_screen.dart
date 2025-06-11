@@ -29,14 +29,16 @@ class _CustomerFormScreenState extends State<CustomerFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFFF8E1),
       appBar: AppBar(
+        backgroundColor: Color(0xFFEBB515),
         centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
-              'assets/images/catzonia.png',
+              'assets/images/catzonia2.png',
               height: 64,
             ),
             const SizedBox(width: 10),
