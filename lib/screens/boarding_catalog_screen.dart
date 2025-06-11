@@ -80,14 +80,16 @@ class _BoardingCatalogScreenState extends State<BoardingCatalogScreen> {
     final formatter = DateFormat.yMMMd();
 
    return Scaffold(
-  appBar: AppBar(
+      backgroundColor: Color(0xFFFFF8E1),
+    appBar: AppBar(
+      backgroundColor: Color(0xFFEBB515),
     centerTitle: true, // centers the title content
     title: Row(
       mainAxisSize: MainAxisSize.min, // makes the Row shrink to content width
       mainAxisAlignment: MainAxisAlignment.center, // centers children inside Row
       children: [
         Image.asset(
-          'assets/images/catzonia.png', // same logo as Grooming page
+          'assets/images/catzonia2.png', // same logo as Grooming page
           height: 64,
         ),
         const SizedBox(width: 10),
@@ -135,12 +137,14 @@ class _BoardingCatalogScreenState extends State<BoardingCatalogScreen> {
           child: ListView.builder(
             itemCount: boardingServices.length,
               itemBuilder: (context, index) {
-                final service = boardingServices[index];
-                   return ServiceCard(
-                     service: service,
-                         onAdd: () => _addBoardingToCart(service),
-                         backgroundColor: Color(0xFFEBB515),
-                        );
+                 final service = boardingServices[index];
+                    final isSelected = Provider.of<BookingProvider>(context).isServiceSelected(service.name);
+
+                    return ServiceCard(
+                      service: service,
+                      onAdd: isSelected ? null : () => _addBoardingToCart(service), // disable button if selected
+                      backgroundColor: isSelected ? Colors.grey.shade300 : Color(0xFFEBB515),
+                    );
                       },
                     ),
                   ),

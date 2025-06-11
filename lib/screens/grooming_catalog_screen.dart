@@ -57,14 +57,16 @@ class _GroomingCatalogScreenState extends State<GroomingCatalogScreen> {
     final customer = Provider.of<BookingProvider>(context).customer;
 
     return Scaffold(
-      appBar: AppBar(
-  centerTitle: true,
-  title: Row(
+        backgroundColor: Color(0xFFFFF8E1),
+    appBar: AppBar(
+      backgroundColor: Color(0xFFEBB515),
+      centerTitle: true,
+      title: Row(
     mainAxisAlignment: MainAxisAlignment.center,
     mainAxisSize: MainAxisSize.min,
     children: [
       Image.asset(
-        'assets/images/catzonia.png',
+        'assets/images/catzonia2.png',
         height: 64,
       ),
       const SizedBox(width: 10),
@@ -111,11 +113,13 @@ class _GroomingCatalogScreenState extends State<GroomingCatalogScreen> {
             itemCount: groomingServices.length,
               itemBuilder: (context, index) {
                 final service = groomingServices[index];
-                   return ServiceCard(
-                     service: service,
-                         onAdd: () => _addToCart(service),
-                         backgroundColor: Color(0xFFEBB515),
-                        );
+                    final isSelected = Provider.of<BookingProvider>(context).isServiceSelected(service.name);
+
+                    return ServiceCard(
+                      service: service,
+                      onAdd: isSelected ? null : () => _addToCart(service), // disable button if selected
+                      backgroundColor: isSelected ? Colors.grey.shade300 : Color(0xFFEBB515),
+                    );
                       },
                     ),
                   ),

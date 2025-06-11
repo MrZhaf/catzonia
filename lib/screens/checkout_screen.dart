@@ -6,6 +6,7 @@ import '../providers/booking_provider.dart';
 // import '../models/service_item.dart';
 import '../widgets/service_card.dart';
 import 'package:uuid/uuid.dart';
+import 'homepage.dart';
 
 class CheckoutScreen extends StatefulWidget {
   @override
@@ -34,8 +35,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         actions: [
           ElevatedButton(
             onPressed: () {
-              Provider.of<BookingProvider>(context, listen: false).clearCart();
-              Navigator.of(context).popUntil((route) => route.isFirst);
+              final provider = Provider.of<BookingProvider>(context, listen: false);
+                provider.clearCart();
+                provider.clearCustomer();
+                  Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (_) => HomePage()),
+             (Route<dynamic> route) => false,
+             );
             },
             child: Text('Done'),
           ),
@@ -65,14 +71,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     }
 
    return Scaffold(
-  appBar: AppBar(
+      backgroundColor: Color(0xFFFFF8E1),
+    appBar: AppBar(
+        backgroundColor: Color(0xFFEBB515),
     centerTitle: true,
     title: Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset(
-          'assets/images/catzonia.png',
+          'assets/images/catzonia2.png',
           height: 64,
         ),
         const SizedBox(width: 10),
