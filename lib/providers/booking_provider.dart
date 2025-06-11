@@ -31,6 +31,16 @@ class BookingProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void clearCustomer() {
+  _customer = null;
+  notifyListeners();
+}
+
+bool isServiceSelected(String serviceName) {
+  return _cartItems.any((item) => item.service.name == serviceName);
+}
+
+
   double get totalAmount {
     double total = 0;
     for (var item in _cartItems) {
