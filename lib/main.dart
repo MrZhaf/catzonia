@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/booking_provider.dart';
-import 'screens/customer_form_screen.dart';
+//import 'screens/customer_form_screen.dart';
 // import 'main_screen.dart';
-// import 'screens/homepage.dart';
+import 'screens/homepage.dart';
 
 
 void main() {
@@ -22,7 +22,7 @@ class CatzoniaApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.orange,
         ),
-        home: CustomerFormScreen(),
+        home: HomePage(),
       ),
     );
   }
